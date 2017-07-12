@@ -14,12 +14,14 @@ public class GCDFinder {
         int control_value;
 
         do {
+            // Prompts user input
             System.out.print("Please enter a positive integer grater than 1: ");
             // Retrieves integer value > 0 as part of a pair for which a gcd is desired
             int positiveIntA = CheckInput.checkIntRange(1, Integer.MAX_VALUE);
             // Prints a new line character
             System.out.print(NEW_LINE);
 
+            // Prompts user for input
             System.out.print("Please enter another positive integer greater than 1: ");
             // Retrieves integer value > 0 as part of a pair for which a gcd is desired
             int positiveIntB = CheckInput.checkIntRange(1, Integer.MAX_VALUE);
@@ -28,7 +30,9 @@ public class GCDFinder {
             // Prints a new line character
             System.out.print(NEW_LINE + NEW_LINE);
 
+            // Prompts usr for input
             System.out.print("To the GCD of another pair enter the number 1. To exit, enter 2: ");
+            // Retrieves input from the user to conditionally continue program
             control_value = CheckInput.checkIntRange(1,2);
             System.out.print(NEW_LINE);
         }while(control_value == 1);
@@ -39,9 +43,21 @@ public class GCDFinder {
      * @return the gcd
      */
     public int gcd(int a,int b){
-        // The a var is copied for the first and second input because the second one is a counter
-        int counter = a;
-        return recursiveGcd(a,b, counter);
+
+        int minValue = min(a,b);
+        int minHalf = minValue/2;
+        int counter = minHalf;
+        if(a == minValue){
+            return recursiveGcd(a,b, counter);
+        }
+        if(b == min(a,b)){
+            return recursiveGcd(b,a, counter);
+        }
+
+        return 0;
+
+
+
     }
 
     /**
@@ -52,6 +68,15 @@ public class GCDFinder {
      * @return a common denominator
      */
     public int recursiveGcd(int a, int b, int i){
+
+        // This will be used in the recursive helper method to determine where to start the count down!
+        while((minValue%i) > 0){
+            counter--;
+        }
+
+        // Logic needa to be added in order to check the value a itself and the value b itself
+
+
         if(i <= 1){
             return 1;
         }
@@ -82,6 +107,22 @@ public class GCDFinder {
         }
         // return whichever was the bigger value
         return max;
+    }
+
+    /**
+     * Finds the minimum value between two numbers
+     * @return max value
+     */
+    private int min(int a, int b){
+        // Assume the min value is a
+        int min = a;
+        // Check if b is smaller
+        if(b < a){
+            // if b is bigger, then I stand corrected
+            min = b;
+        }
+        // return whichever was the smaller value
+        return min;
     }
 }
 
