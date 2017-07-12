@@ -3,9 +3,18 @@
  * Created by Isaac on 7/11/2017.
  */
 public class GCDFinder {
-    
+    private int a;
+    private int b;
+    private int gcd;
+
+    public GCDFinder(int aNum, int bNum){
+        a = aNum;
+        b = bNum;
+        gcd = gcd();
+    }
+
     public static void main(String[] args){
-        GCDFinder getGcd = new GCDFinder();
+
         String BORDER = "////////////////";
         String PROGRAM_TITLE = " GCD Finder ";
         String NEW_LINE = "\n";
@@ -25,8 +34,8 @@ public class GCDFinder {
             System.out.print("Please enter another positive integer greater than 1: ");
             // Retrieves integer value > 0 as part of a pair for which a gcd is desired
             int positiveIntB = CheckInput.checkIntRange(1, Integer.MAX_VALUE);
-            int gcd = getGcd.gcd(positiveIntA, positiveIntB);
-            System.out.print(gcd);
+
+            System.out.print(new GCDFinder(positiveIntA,positiveIntB));
             // Prints a new line character
             System.out.print(NEW_LINE + NEW_LINE);
 
@@ -42,55 +51,36 @@ public class GCDFinder {
      * Simply calls a helper method by setting up proper input
      * @return the gcd
      */
-    public int gcd(int a,int b){
+    public int gcd(){
 
-        int minValue = min(a,b);
-        int minHalf = minValue/2;
-        int counter = minHalf;
-        if(a == minValue){
-            return recursiveGcd(a,b, counter);
+        if(a%b == 0){
+            return b;
         }
-        if(b == min(a,b)){
-            return recursiveGcd(b,a, counter);
+        if(b%a == 0){
+            return a;
         }
-
-        return 0;
-
-
+        int counterA = a/2;
+        int counterB = b/2;
+        return max(recursiveGcd(counterA), recursiveGcd(counterB));
 
     }
 
     /**
      * This is a recursive helper method which ultimately finds the gcd for any two positive numbers
-     * @param a first number in a pair for which the gcd is desired
-     * @param b second number in a pair for which the gcd is required
      * @param i a counter which is decremented to 1
      * @return a common denominator
      */
-    public int recursiveGcd(int a, int b, int i){
-
-        // This will be used in the recursive helper method to determine where to start the count down!
-        while((minValue%i) > 0){
-            counter--;
-        }
-
-        // Logic needa to be added in order to check the value a itself and the value b itself
-
-
-        if(i <= 1){
+    public int recursiveGcd(int i){
+        if(i == 1){
             return 1;
         }
-        
-        int maxCd = recursiveGcd(a, b, i-1);
-
-        int cd = 1;
         if(a%i == 0){
             if(b%i == 0){
-                cd = i;
+                return i;
             }
         }
+        return recursiveGcd(i-1);
 
-        return max(maxCd, cd);
     }
 
     /**
@@ -109,20 +99,8 @@ public class GCDFinder {
         return max;
     }
 
-    /**
-     * Finds the minimum value between two numbers
-     * @return max value
-     */
-    private int min(int a, int b){
-        // Assume the min value is a
-        int min = a;
-        // Check if b is smaller
-        if(b < a){
-            // if b is bigger, then I stand corrected
-            min = b;
-        }
-        // return whichever was the smaller value
-        return min;
+    public String toString(){
+        return ""+gcd;
     }
 }
 
