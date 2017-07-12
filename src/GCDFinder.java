@@ -6,8 +6,32 @@ public class GCDFinder {
     
     public static void main(String[] args){
         GCDFinder getGcd = new GCDFinder();
-        int gcd = getGcd.gcd(48, 18);
-        System.out.print(gcd);
+        String BORDER = "////////////////";
+        String PROGRAM_TITLE = " GCD Finder ";
+        String NEW_LINE = "\n";
+        System.out.print(BORDER + PROGRAM_TITLE + BORDER + NEW_LINE);
+
+        int control_value;
+
+        do {
+            System.out.print("Please enter a positive integer grater than 1: ");
+            // Retrieves integer value > 0 as part of a pair for which a gcd is desired
+            int positiveIntA = CheckInput.checkIntRange(1, Integer.MAX_VALUE);
+            // Prints a new line character
+            System.out.print(NEW_LINE);
+
+            System.out.print("Please enter another positive integer greater than 1: ");
+            // Retrieves integer value > 0 as part of a pair for which a gcd is desired
+            int positiveIntB = CheckInput.checkIntRange(1, Integer.MAX_VALUE);
+            int gcd = getGcd.gcd(positiveIntA, positiveIntB);
+            System.out.print(gcd);
+            // Prints a new line character
+            System.out.print(NEW_LINE + NEW_LINE);
+
+            System.out.print("To the GCD of another pair enter the number 1. To exit, enter 2: ");
+            control_value = CheckInput.checkIntRange(1,2);
+            System.out.print(NEW_LINE);
+        }while(control_value == 1);
     }
 
     /**
