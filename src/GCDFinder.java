@@ -2,10 +2,10 @@
  * A simple program that finds prints the greatest common divisor (gcd) between two numbers
  * Created by Isaac on 7/11/2017.
  */
-public class ProgAssign1 {
+public class GCDFinder {
     
     public static void main(String[] args){
-        ProgAssign1 getGcd = new ProgAssign1();
+        GCDFinder getGcd = new GCDFinder();
         int gcd = getGcd.gcd(48, 18);
         System.out.print(gcd);
     }
