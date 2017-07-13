@@ -5,14 +5,11 @@ import java.util.Scanner;
  * Created by Isaac on 7/11/2017.
  */
 public class GCDFinder {
-    private int a;
-    private int b;
     private int gcd;
 
-    public GCDFinder(int aNum, int bNum) {
-        a = aNum;
-        b = bNum;
-        gcd = gcd();
+
+    public GCDFinder() {
+
     }
 
     public static void main(String[] args) {
@@ -30,22 +27,23 @@ public class GCDFinder {
             // Retrieves integer value > 0 as part of a pair for which a gcd is desired
             int positiveIntA = checkIntRange(1, Integer.MAX_VALUE);
             // Prints a new line character
-            System.out.print(NEW_LINE);
+
 
             // Prompts user for input
             System.out.print("Please enter another positive integer greater than 1: ");
             // Retrieves integer value > 0 as part of a pair for which a gcd is desired
             int positiveIntB = checkIntRange(1, Integer.MAX_VALUE);
 
-            System.out.print(new GCDFinder(positiveIntA, positiveIntB));
+            System.out.print(new GCDFinder().gcd(positiveIntA,positiveIntB));
             // Prints a new line character
             System.out.print(NEW_LINE + NEW_LINE);
 
             // Prompts usr for input
-            System.out.print("To the GCD of another pair enter the number 1. To exit, enter 2: ");
+            System.out.print("1) Try Again"+NEW_LINE+"2) Exit"+NEW_LINE);
             // Retrieves input from the user to conditionally continue program
             control_value = checkIntRange(1, 2);
             System.out.print(NEW_LINE);
+
         } while (control_value == 1);
     }
 
@@ -54,34 +52,22 @@ public class GCDFinder {
      *
      * @return the gcd
      */
-    public int gcd() {
-        if (a % b == 0) {
-            return b;
+    public int gcd(int a, int b) {
+        if(max(a, b) == a){
+            return recursiveGcd(a, b);
         }
-        if (b % a == 0) {
-            return a;
-        }
-        int counterA = a / 2;
-        int counterB = b / 2;
-        return max(recursiveGcd(counterA), recursiveGcd(counterB));
+        return recursiveGcd(a,b);
     }
 
     /**
      * This is a recursive helper method which ultimately finds the gcd for any two positive numbers
-     *
-     * @param i a counter which is decremented to 1
      * @return a common denominator
      */
-    public int recursiveGcd(int i) {
-        if (i == 1) {
-            return 1;
+    public int recursiveGcd(int a, int b) {
+        if (a%b == 0) {
+            return b;
         }
-        if (a % i == 0) {
-            if (b % i == 0) {
-                return i;
-            }
-        }
-        return recursiveGcd(i - 1);
+        return recursiveGcd(b, a%b);
     }
 
     /**
