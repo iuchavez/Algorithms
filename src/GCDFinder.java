@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 /**
@@ -5,12 +7,6 @@ import java.util.Scanner;
  * Created by Isaac on 7/11/2017.
  */
 public class GCDFinder {
-    private int gcd;
-
-
-    public GCDFinder() {
-
-    }
 
     public static void main(String[] args) {
 
@@ -21,28 +17,48 @@ public class GCDFinder {
 
         int control_value;
 
+        ArrayList<Integer> inputValues = new ArrayList<Integer>();
         do {
+            // Clears out the array list
+            inputValues.clear();
+
             // Prompts user input
             System.out.print("Please enter a positive integer grater than 1: ");
             // Retrieves integer value > 0 as part of a pair for which a gcd is desired
-            int positiveIntA = checkIntRange(1, Integer.MAX_VALUE);
+            inputValues.add(checkIntRange(1, Integer.MAX_VALUE));
             // Prints a new line character
 
+            do{
 
-            // Prompts user for input
-            System.out.print("Please enter another positive integer greater than 1: ");
-            // Retrieves integer value > 0 as part of a pair for which a gcd is desired
-            int positiveIntB = checkIntRange(1, Integer.MAX_VALUE);
+                // Prompts user input
+                System.out.print("Please enter a positive integer grater than 1: ");
+                // Retrieves integer value > 0 as part of a pair for which a gcd is desired
+                inputValues.add(checkIntRange(1, Integer.MAX_VALUE));
 
-            System.out.print(new GCDFinder().gcd(positiveIntA,positiveIntB));
+                System.out.print("Enter another number?"+NEW_LINE+"1) Yes"+NEW_LINE+"2) No");
+                control_value = checkIntRange(1, 2);
+
+            }while(control_value == 1);
+
+//            for(int x : inputValues){
+//                System.out.println("["+x+"]");
+//            }
+
+            double startTime = System.nanoTime();
+            System.out.println(new GCDFinder().gcd(inputValues));
+            double endTime = System.nanoTime();
+            System.out.println("Duration: "+(endTime-startTime)/(1000000000));
+
             // Prints a new line character
-            System.out.print(NEW_LINE + NEW_LINE);
+            System.out.print(NEW_LINE);
 
             // Prompts usr for input
             System.out.print("1) Try Again"+NEW_LINE+"2) Exit"+NEW_LINE);
             // Retrieves input from the user to conditionally continue program
             control_value = checkIntRange(1, 2);
             System.out.print(NEW_LINE);
+
+
 
         } while (control_value == 1);
     }
@@ -52,43 +68,32 @@ public class GCDFinder {
      *
      * @return the gcd
      */
-    public int gcd(int a, int b) {
-        if(max(a, b) == a){
-            return recursiveGcd(a, b);
+    public int gcd(ArrayList<Integer> input) {
+        int commonDenom = euclideanGcd(input.get(0), input.get(1));
+        for (int i = 2; i < input.size(); i++){
+            commonDenom = euclideanGcd(input.get(i), commonDenom);
         }
-        return recursiveGcd(a,b);
+        int gcd = commonDenom;
+        return gcd;
     }
 
     /**
      * This is a recursive helper method which ultimately finds the gcd for any two positive numbers
      * @return a common denominator
      */
-    public int recursiveGcd(int a, int b) {
+    public int euclideanGcd(int a, int b) {
+        if(b > a){
+            // swap a and b
+            int temp;
+            temp = a;
+            a = b;
+            b = temp;
+        }
+//        System.out.println("a-value: " + a + " b-value: " + b);
         if (a%b == 0) {
             return b;
         }
-        return recursiveGcd(b, a%b);
-    }
-
-    /**
-     * Finds the maximum value between two numbers
-     *
-     * @return max value
-     */
-    private int max(int a, int b) {
-        // Assume the max value is a
-        int max = a;
-        // Check if b is bigger
-        if (b > a) {
-            // if b is bigger, then I stand corrected
-            max = b;
-        }
-        // return whichever was the bigger value
-        return max;
-    }
-
-    public String toString() {
-        return "" + gcd;
+        return euclideanGcd(b, a%b);
     }
 
 
