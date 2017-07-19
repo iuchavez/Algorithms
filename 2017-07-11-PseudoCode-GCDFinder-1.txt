@@ -1,0 +1,32 @@
+The algorithm for finding the gcd is going to use mod
+I think that a recursive approach would take a number and recursivly find the numbers that divide it evenly which are less than intself
+
+So that would probably look like
+
+int gcd(a,b){
+	recursiveGcd(a, a, c)
+}
+
+int recursiveGcd(a,b,c){ //where a = b
+	if(b <= 1){
+		return 1;
+	}
+	
+	maxCd = recursiveGcd(a, b-1,c);
+
+	
+	if(a%b = 0){
+		if(c%b = 0){
+			cd = b;
+		}
+	}
+
+	return max(maxCd, cd)
+}
+
+max(a, b){
+	if(a >= b){
+		return a;
+	}
+	return c;
+}

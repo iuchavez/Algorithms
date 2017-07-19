@@ -1,0 +1,6 @@
+I need to accept only input that is within a certain range. I can import the getInt() function from Shannon Foss' class.
+
+Maybe it is already in one of my GitHub repos. If not then I may have a change finding it on an old flash drive or on Google Drive.
+
+
+It looks like large values cause a stack overflow error in my implementation. I think I need to reduce the number of times that this program will recurse, I will take the smaller of the two inputs and divide it by two, since there is no way that I would be able to get a number that is higher 
