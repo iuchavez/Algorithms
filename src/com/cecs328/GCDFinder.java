@@ -1,6 +1,10 @@
+package com.cecs328;
+
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Scanner;
+
+
+
 
 /**
  * A simple program that finds prints the greatest common divisor (gcd) between two numbers
